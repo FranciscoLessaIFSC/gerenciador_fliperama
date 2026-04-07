@@ -72,7 +72,7 @@ export default function Home() {
           </form>
 
           <Text size="xs" c="dimmed" className="text-center">
-            © 2024 Gerenciador de Fliperama
+            © 2026 Gerenciador de Fliperama
           </Text>
         </Stack>
       </Container>
