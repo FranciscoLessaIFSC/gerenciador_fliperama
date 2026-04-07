@@ -59,7 +59,6 @@ body {
     linear-gradient(135deg, var(--arcade-dark-bg) 0%, var(--arcade-darker-bg) 100%);
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
 }
 
 .arcade-home::before {
