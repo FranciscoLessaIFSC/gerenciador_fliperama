@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="client">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Arcade Manager - Ranking</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="../../styles.css" />
+	<link rel="stylesheet" href="../dashboard.css" />
+	<link rel="stylesheet" href="ranking.css" />
+</head>
+<body>
+	<header class="topbar">
+		<h1 class="brand">Arcade Manager</h1>
+		<div class="topbar-actions">
+			<a href="/app/dashboard/" class="btn btn-admin">voltar</a>
+		</div>
+	</header>
+
+	<main class="ranking-main">
+		<section class="ranking-panel" aria-label="Ranking de jogos">
+			<div>
+				<p class="ranking-kicker">Ranking</p>
+				<h2 class="ranking-title">Pontuação por jogo</h2>
+			</div>
+
+			<label class="ranking-filter" for="gameFilter">
+				<span class="ranking-filter-label">Jogo</span>
+				<select id="gameFilter" class="ranking-select" name="gameFilter">
+					<option value="all">Todos os jogos</option>
+					<option value="space-raiders">Space Raiders</option>
+					<option value="turbo-kart">Turbo Kart</option>
+					<option value="neon-fighter">Neon Fighter</option>
+					<option value="pixel-striker">Pixel Striker</option>
+					<option value="galaxy-rush">Galaxy Rush</option>
+				</select>
+			</label>
+
+			<div class="table-wrap">
+				<table class="games-table">
+					<thead>
+						<tr>
+							<th>Game</th>
+							<th>Score</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Space Raiders</td>
+							<td>2.900</td>
+							<td>2026-04-14</td>
+						</tr>
+						<tr>
+							<td>Turbo Kart</td>
+							<td>1.870</td>
+							<td>2026-04-13</td>
+						</tr>
+						<tr>
+							<td>Neon Fighter</td>
+							<td>3.420</td>
+							<td>2026-04-12</td>
+						</tr>
+						<tr>
+							<td>Pixel Striker</td>
+							<td>1.660</td>
+							<td>2026-04-11</td>
+						</tr>
+						<tr>
+							<td>Galaxy Rush</td>
+							<td>2.990</td>
+							<td>2026-04-10</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+</body>
+</html>

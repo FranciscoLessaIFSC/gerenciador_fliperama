@@ -1,0 +1,150 @@
+.dashboard-main {
+	width: min(1200px, 100% - 32px);
+	margin: 0 auto;
+	padding: var(--space-8) 0 var(--space-10);
+	display: grid;
+	gap: var(--space-6);
+}
+
+.stats-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--space-4);
+}
+
+.stat-card {
+	background: var(--color-bg-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: var(--space-6);
+	box-shadow: var(--shadow-sm);
+	display: grid;
+	gap: var(--space-2);
+}
+
+.stat-title {
+	margin: 0;
+	font-size: 0.95rem;
+	font-weight: 600;
+	color: var(--color-text-secondary);
+}
+
+.stat-value {
+	margin: 0;
+	font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.4rem);
+	font-weight: 700;
+	line-height: 1.1;
+	color: var(--theme-primary);
+	text-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+}
+
+.stat-value-row {
+	display: flex;
+	align-items: center;
+	gap: var(--space-3);
+}
+
+.btn-buy-credits {
+	height: 36px;
+	width: 36px;
+	display: grid;
+	place-items: center;
+	border-radius: var(--radius-md);
+	border: 1px solid var(--theme-primary);
+	background: transparent;
+	color: var(--theme-primary);
+	font: inherit;
+	font-size: 1.4rem;
+	line-height: 1;
+	font-weight: 700;
+	cursor: pointer;
+	padding: 0;
+	transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+
+.btn-buy-credits:hover {
+	filter: brightness(1.08);
+}
+
+.btn-buy-credits:active {
+	transform: scale(0.98);
+	filter: brightness(0.94);
+}
+
+.btn-buy-credits:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 3px var(--theme-focus);
+}
+
+.games-history {
+	background: var(--color-bg-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	padding: var(--space-6);
+	box-shadow: var(--shadow-md);
+	display: grid;
+	gap: var(--space-4);
+}
+
+.history-title {
+	margin: 0;
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: var(--color-text-primary);
+}
+
+.table-wrap {
+	overflow-x: auto;
+}
+
+.games-table {
+	width: 100%;
+	border-collapse: collapse;
+	min-width: 420px;
+}
+
+.games-table th,
+.games-table td {
+	padding: var(--space-3) var(--space-4);
+	text-align: left;
+	border-bottom: 1px solid var(--color-border);
+}
+
+.games-table thead th {
+	background: #121a33;
+	font-size: 0.85rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--color-text-secondary);
+}
+
+.games-table tbody tr:hover {
+	background: #1d274a;
+}
+
+.games-table td:nth-child(2),
+.games-table th:nth-child(2) {
+	text-align: right;
+	font-family: "JetBrains Mono", Consolas, monospace;
+}
+
+.games-table td:nth-child(3),
+.games-table th:nth-child(3) {
+	text-align: right;
+}
+
+@media (max-width: 640px) {
+	.dashboard-main {
+		width: min(1200px, 100% - 20px);
+		padding: var(--space-6) 0 var(--space-8);
+	}
+
+	.stats-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.games-history,
+	.stat-card {
+		padding: var(--space-5);
+	}
+}

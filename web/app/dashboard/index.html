@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="client">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Arcade Manager - Dashboard</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="../styles.css" />
+	<link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+	<header class="topbar">
+		<h1 class="brand">Arcade Manager</h1>
+		<div class="topbar-actions">
+			<a href="/app/dashboard/ranking/" class="btn btn-admin">ranking</a>
+			<a href="../index.html" class="btn btn-admin">voltar</a>
+		</div>
+	</header>
+
+	<main class="dashboard-main">
+		<section class="stats-grid" aria-label="Resumo do usuário">
+			<article class="stat-card">
+				<h2 class="stat-title">Score</h2>
+				<p class="stat-value">12.840</p>
+			</article>
+			<article class="stat-card">
+				<h2 class="stat-title">Credits</h2>
+				<div class="stat-value-row">
+					<p class="stat-value">47</p>
+					<button class="btn-buy-credits" type="button" aria-label="Buy credits">+</button>
+				</div>
+			</article>
+		</section>
+
+		<section class="games-history" aria-label="Últimos jogos">
+			<h2 class="history-title">Últimos 5 jogos</h2>
+			<div class="table-wrap">
+				<table class="games-table">
+					<thead>
+						<tr>
+							<th>Game</th>
+							<th>Score</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Space Raiders</td>
+							<td>2.900</td>
+							<td>2026-04-14</td>
+						</tr>
+						<tr>
+							<td>Turbo Kart</td>
+							<td>1.870</td>
+							<td>2026-04-13</td>
+						</tr>
+						<tr>
+							<td>Neon Fighter</td>
+							<td>3.420</td>
+							<td>2026-04-12</td>
+						</tr>
+						<tr>
+							<td>Pixel Striker</td>
+							<td>1.660</td>
+							<td>2026-04-11</td>
+						</tr>
+						<tr>
+							<td>Galaxy Rush</td>
+							<td>2.990</td>
+							<td>2026-04-10</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+</body>
+</html>
