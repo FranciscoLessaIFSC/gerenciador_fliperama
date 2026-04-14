@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="client">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Arcade Manager - Admin Maquinas</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="../styles.css" />
+	<link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+	<div class="admin-shell">
+		<aside class="admin-sidebar" aria-label="Menu administrativo">
+			<div class="sidebar-top">
+				<a href="index.html" class="admin-brand">Admin Menu</a>
+				<button type="button" class="sidebar-toggle" data-sidebar-toggle aria-label="Recolher menu">||</button>
+			</div>
+			<nav class="sidebar-menu">
+				<a href="index.html" class="menu-link"><span class="menu-icon">DB</span><span class="menu-label">Dashboard</span></a>
+				<a href="users.html" class="menu-link"><span class="menu-icon">US</span><span class="menu-label">Usuarios</span></a>
+				<a href="machines.html" class="menu-link is-active"><span class="menu-icon">MC</span><span class="menu-label">Maquinas</span></a>
+				<a href="reports.html" class="menu-link"><span class="menu-icon">RP</span><span class="menu-label">Relatorios</span></a>
+			</nav>
+		</aside>
+
+		<div class="admin-content-wrap">
+			<header class="admin-topbar">
+				<div class="admin-topbar-actions">
+					<button type="button" class="sidebar-toggle sidebar-toggle-mobile" data-sidebar-toggle aria-label="Abrir menu">||</button>
+					<h1 class="admin-topbar-title">Maquinas</h1>
+				</div>
+				<a href="../index.html" class="btn btn-admin">sair</a>
+			</header>
+
+			<main class="admin-main">
+				<section class="admin-card" aria-label="Status das maquinas">
+					<h2>Status das maquinas</h2>
+					<div class="admin-table-wrap">
+						<table class="admin-table">
+							<thead>
+								<tr>
+									<th>Maquina</th>
+									<th>Area</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr><td>Space Raiders #03</td><td>Ala A</td><td>Online</td></tr>
+								<tr><td>Turbo Kart #07</td><td>Ala B</td><td>Manutencao</td></tr>
+								<tr><td>Neon Fighter #05</td><td>Ala A</td><td>Online</td></tr>
+							</tbody>
+						</table>
+					</div>
+				</section>
+			</main>
+		</div>
+	</div>
+	<script src="admin.js"></script>
+</body>
+</html>
