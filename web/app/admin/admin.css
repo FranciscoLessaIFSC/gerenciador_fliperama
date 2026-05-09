@@ -24,7 +24,7 @@
 .admin-sidebar {
 	padding: var(--space-5);
 	border-right: 1px solid var(--color-border);
-	background: rgba(20, 27, 52, 0.92);
+	background: rgba(79, 97, 161, 0.507);/*mudei esta linha, a cor era:rgba(20, 27, 52, 0.92) */
 	backdrop-filter: blur(8px);
 	display: grid;
 	grid-template-rows: auto 1fr;
