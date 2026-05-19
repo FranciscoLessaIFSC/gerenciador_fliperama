@@ -314,3 +314,10 @@ body {
 		font-size: 0.9rem;
 	}
 }
+.pagamento{
+	display: flex;
+	align-items: start;
+	gap: 1rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid var(--color-border);
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="client">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arcade Manager - Compra de Créditos</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <h1 class="brand">Arcade Manager</h1>
+
+      <div class="topbar-actions">
+        <a href="../app/dashboard/index.html" class="btn btn-admin">Voltar</a>
+      </div>
+    </header>
+
+    <main class="credits-page">
+      <section class="credits-card">
+        <h2 class="credits-title">Compra de Créditos</h2>
+
+        <table class="credits-table">
+          <thead>
+            <tr>
+              <th>Quantidade</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1 crédito</td>
+              <td>R$ 5,00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="credits-table">
+          <div>
+            <h2>Metodo de pagamento</h2>
+            <div class="pagamento">
+			<div class="credits-buy-btn" data-bs-toggle="modal" data-bs-target="#modalPix">Pix</div>
+			<div class="credits-buy-btn" data-bs-toggle="modal" data-bs-target="#modalCartao">Cartão</div>
+          </div>
+        </div>
+      </section>
+
+	  <!-- Modais - INI -->
+	  <div class="modal fade" id="modalPix" tabindex="-1" aria-hidden="true">
+    	<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content rounded-4">
+				<div class="modal-header border-0 pb-0">
+					<div>
+						<h5 class="modal-title fw-bold mb-1">
+							Pagamento via PIX
+						</h5>
+						<small class="text-muted">
+							Escaneie o QR Code para concluir o pagamento
+						</small>
+					</div>
+					<button type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close">
+					</button>
+				</div>
+				
+				<div class="modal-body text-center">
+						<img src="./qrcode_351890286_c5760506d1975ac19c2b0cb4cf8ad31a.png" style="max-width: 222px;" alt="QR Code PIX">
+				</div>
+				<div class="modal-footer border-0 pt-0 justify-content-center mt-3">
+					<button type="button"class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	  <!-- Modal Cartão -->
+<div class="modal fade" id="modalCartao" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4">
+            <div class="modal-header">
+                <div>
+                    <h5 class="modal-title fw-bold mb-1">
+						Pagamento via Cartão
+					</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">
+                        Número do cartão
+                    </label>
+                    <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">
+                        Nome do titular
+                    </label>
+                    <input type="text" class="form-control" placeholder="Nome como está no cartão">
+                </div>
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label">
+                            Validade
+                        </label>
+
+                        <input type="text" class="form-control" placeholder="MM/AA" maxlength="5">
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label">
+                            CVV
+                        </label>
+                        <input type="password" class="form-control" placeholder="123" maxlength="4">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer  justify-content-between">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+					Cancelar
+                </button>
+                <button type="button" class="btn btn-success" disabled>
+                    Confirmar pagamento
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+	  <!-- Modais - FIM -->
+
+      <br />
+    </main>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+</html>
