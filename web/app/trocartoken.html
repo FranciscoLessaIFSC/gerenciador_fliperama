@@ -33,23 +33,23 @@
           <thead>
             <tr>
               <th>Quantidade</th>
-              <th>Valor</th>
+              <th>Pontos</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1 crédito</td>
-              <td>R$ 5,00</td>
+              <td> 100 </td>
             </tr>
           </tbody>
         </table>
 
         <div class="credits-table">
           <div>
-            <h2>Metodo de pagamento</h2>
+            <h2>Realizar troca</h2>
             <div class="pagamento">
-			<div class="credits-buy-btn" data-bs-toggle="modal" data-bs-target="#modalPix">Pix</div>
-			<div class="credits-buy-btn" data-bs-toggle="modal" data-bs-target="#modalCartao">Cartão</div>
+			<div class="credits-buy-btn" data-bs-toggle="modal" data-bs-target="#modalPix">Trocar</div>
+
           </div>
         </div>
       </section>
@@ -61,10 +61,10 @@
 				<div class="modal-header border-0 pb-0">
 					<div>
 						<h5 class="modal-title fw-bold mb-1">
-							Pagamento via PIX
+							Troca sendo processada
 						</h5>
 						<small class="text-muted">
-							Escaneie o QR Code para concluir o pagamento
+							Aguarde sua troca esta sendo realizada
 						</small>
 					</div>
 					<button type="button"
@@ -75,7 +75,7 @@
 				</div>
 				
 				<div class="modal-body text-center">
-						<img src="./qrcode_351890286_c5760506d1975ac19c2b0cb4cf8ad31a.png" style="max-width: 222px;" alt="QR Code PIX">
+						<img src="./image.png" style="max-width: 400px;" alt="QR Code PIX">
 				</div>
 				<div class="modal-footer border-0 pt-0 justify-content-center mt-3">
 					<button type="button"class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
@@ -84,64 +84,7 @@
 		</div>
 	</div>
 
-	  <!-- Modal Cartão -->
-<div class="modal fade" id="modalCartao" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4">
-            <div class="modal-header">
-                <div>
-                    <h5 class="modal-title fw-bold mb-1">
-						Pagamento via Cartão
-					</h5>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">
-                        Número do cartão
-                    </label>
-                    <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">
-                        Nome do titular
-                    </label>
-                    <input type="text" class="form-control" placeholder="Nome como está no cartão">
-                </div>
-                <div class="row">
-                    <div class="col-6 mb-3">
-                        <label class="form-label">
-                            Validade
-                        </label>
-
-                        <input type="text" class="form-control" placeholder="MM/AA" maxlength="5">
-                    </div>
-                    <div class="col-6 mb-3">
-                        <label class="form-label">
-                            CVV
-                        </label>
-                        <input type="password" class="form-control" placeholder="123" maxlength="4">
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer  justify-content-between">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-					Cancelar
-                </button>
-                <button type="button" class="btn btn-success" disabled>
-                    Confirmar pagamento
-                </button>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-	  <!-- Modais - FIM -->
-
+	 
       <br />
     </main>
   </body>
