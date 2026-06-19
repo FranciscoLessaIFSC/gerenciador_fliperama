@@ -201,6 +201,66 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas = document.getElementById("dailyMachines");
+
+    if (!canvas) return;
+
+    new Chart(canvas, {
+        type: "bar",
+
+        data: {
+            labels: ["Space Raiders", "Turbo Kart", "Neon Fighter"],
+
+            datasets: [{
+                label: "Jogos",
+                data: [400, 890, 999],
+                backgroundColor: ["#7aa2ff", "#00d4aa", "#ff7eb3"],
+
+                borderColor: ["#9bb8ff", "#33e6c0", "#ff9dc8"],
+                borderRadius: 12,
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+				legend: {
+					display: false
+				},
+				tooltip: {
+					enabled: true
+				}
+			},
+
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: "#94a3b8",
+                        font: {
+                            weight: "600"
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: "rgba(255,255,255,0.05)"
+                    },
+                    ticks: {
+                        color: "#64748b"
+                    }
+                }
+            }
+        }
+    });
+});
+
 
 
 
