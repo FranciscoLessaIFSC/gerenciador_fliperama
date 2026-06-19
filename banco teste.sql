@@ -94,5 +94,3 @@ CREATE TABLE usuario (
   admin BOOL NULL,
   PRIMARY KEY(idusuario)
 );
-
-
