@@ -42,59 +42,101 @@ window.addEventListener("resize", () => {
 });
 
 /* ==========================
-   GRÁFICO DE JOGOS DIÁRIOS
+   MINI GRÁFICOS DOS KPIs
 ========================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-	const canvas = document.getElementById("dailyGamesChart");
+	const dailyLabels = [
+		"08h",
+		"10h",
+		"12h",
+		"14h",
+		"16h",
+		"18h",
+		"20h",
+		"22h"
+	];
 
-	if (!canvas) return;
+	function createMiniChart(canvasId, values, color = "#7aa2ff") {
 
-	new Chart(canvas, {
-		type: "line",
+		const canvas = document.getElementById(canvasId);
 
-		data: {
-			labels: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
+		if (!canvas) return;
 
-			datasets: [{
-				data: [1180, 1240, 1320, 1275, 1426, 1680, 1540],
+		new Chart(canvas, {
+			type: "line",
 
-				borderColor: "#7aa2ff",
-				backgroundColor: "rgba(122,162,255,0.15)",
+			data: {
+				labels: dailyLabels,
 
-				fill: true,
-				tension: 0.4,
+				datasets: [{
+					data: values,
 
-				borderWidth: 3,
+					borderColor: color,
+					backgroundColor: color + "20",
 
-				pointRadius: 0
-			}]
-		},
+					fill: true,
+					tension: 0.4,
 
-		options: {
-			responsive: true,
-			maintainAspectRatio: false,
+					borderWidth: 3,
 
-			plugins: {
-				legend: {
-					display: false
-				},
-				tooltip: {
-					enabled: true
-				}
+					pointRadius: 0,
+					pointHoverRadius: 5
+				}]
 			},
 
-			scales: {
-				x: {
-					display: false
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+
+				plugins: {
+					legend: {
+						display: false
+					},
+					tooltip: {
+						enabled: true
+					}
 				},
-				y: {
-					display: false
+
+				scales: {
+					x: {
+						display: false
+					},
+					y: {
+						display: false
+					}
+				},
+
+				elements: {
+					line: {
+						capBezierPoints: true
+					}
 				}
 			}
-		}
-	});
+		});
+	}
+
+	/* Jogos Hoje */
+	createMiniChart(
+		"dailyGamesChart",
+		[120, 210, 380, 620, 890, 1150, 1320, 1426],
+		"#7aa2ff"
+	);
+
+	/* Cards Ativos */
+	createMiniChart(
+		"OnCardsChart",
+		[730, 745, 760, 785, 810, 825, 835, 842],
+		"#14b8a6"
+	);
+
+	/* Receita Diária */
+	createMiniChart(
+		"DailyRevenueChart",
+		[450, 890, 1350, 2800, 4300, 6200, 7900, 9240],
+		"#f59e0b"
+	);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
