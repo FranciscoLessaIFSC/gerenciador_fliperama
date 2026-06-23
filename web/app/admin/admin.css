@@ -265,3 +265,68 @@
 }
 
 
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    margin-top: 1rem;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* CARD DO GRÁFICO */
+
+.admin-card {
+    padding: 1.5rem;
+}
+
+.admin-card h2 {
+    margin-bottom: 1rem;
+}
+
+
+.games-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.games-card .kpi-value {
+    margin-bottom: 10px;
+}
+
+.mini-chart {
+    width: 100%;
+    height: 120px;
+    margin-top: auto;
+}
+
+.mini-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+
+
+.games-card {
+	display: flex;
+	flex-direction: column;
+}
+
+.games-card .kpi-value {
+	margin-bottom: 12px;
+}
+
+.mini-chart {
+	width: 100%;
+	height: 90px;
+	margin-top: auto;
+}
+
+.mini-chart canvas {
+	width: 100% !important;
+	height: 100% !important;
+}
+
