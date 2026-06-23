@@ -1,0 +1,206 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Card {
+  id        Int      @id @default(autoincrement())
+  uid       String   @unique // identificador físico do cartão (RFID/serial)
+  name      String?
+  balance   Decimal  @default("0")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  scores       Score[]
+  transactions FinancialTransaction[]
+}
+
+model Machine {
+  id       Int     @id @default(autoincrement())
+  name     String
+  location String?
+  serial   String? @unique
+  active   Boolean @default(true)
+
+  games                 Game[]
+  sales                 Sale[]
+  scores                Score[]
+  matches               Match[]
+  financialTransactions FinancialTransaction[]
+}
+
+model Game {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+  rules       Json?
+  active      Boolean @default(true)
+
+  scores Score[]
+
+  machine   Machine? @relation(fields: [machineId], references: [id])
+  machineId Int?
+  matches   Match[]
+}
+
+model Score {
+  id         Int      @id @default(autoincrement())
+  card       Card     @relation(fields: [cardId], references: [id])
+  cardId     Int
+  game       Game?    @relation(fields: [gameId], references: [id])
+  gameId     Int?
+  machine    Machine? @relation(fields: [machineId], references: [id])
+  machineId  Int?
+  points     Int
+  recordedAt DateTime @default(now())
+  metadata   Json?
+}
+
+model Match {
+  id        Int       @id @default(autoincrement())
+  game      Game      @relation(fields: [gameId], references: [id])
+  gameId    Int
+  machine   Machine?  @relation(fields: [machineId], references: [id])
+  machineId Int?
+  startedAt DateTime  @default(now())
+  endedAt   DateTime?
+  notes     String?
+}
+
+model Employee {
+  id           Int      @id @default(autoincrement())
+  name         String
+  email        String?  @unique
+  passwordHash String?
+  role         Role     @default(CASHIER)
+  bankInfo     Json?
+  active       Boolean  @default(true)
+  mfaEnabled   Boolean  @default(false)
+
+  transactions FinancialTransaction[]
+  attendances  Attendance[]
+  sales        Sale[]
+  permissions  EmployeesOnPermissions[]
+}
+
+model Permission {
+  id Int @id @default(autoincrement())
+  name String @unique
+  employees EmployeesOnPermissions[] 
+}
+
+model EmployeesOnPermissions {
+  employeeId   Int
+  permissionId Int
+  employee     Employee   @relation(fields: [employeeId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([employeeId, permissionId])
+}
+
+model Discount {
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  description String?
+  percent     Int?
+  amount      Decimal?
+  startsAt    DateTime?
+  endsAt      DateTime?
+  active      Boolean   @default(true)
+}
+
+model FinancialTransaction {
+  id            Int             @id @default(autoincrement())
+  type          TransactionType
+  paymentMethod PaymentMethod
+  amount        Decimal
+  card          Card?           @relation(fields: [cardId], references: [id])
+  cardId        Int?
+  employee      Employee?       @relation(fields: [employeeId], references: [id])
+  employeeId    Int?
+  machine       Machine?        @relation(fields: [machineId], references: [id])
+  machineId     Int?
+  createdAt     DateTime        @default(now())
+  description   String?
+  metadata      Json?
+}
+
+model Product {
+  id               Int     @id @default(autoincrement())
+  sku              String? @unique
+  name             String
+  description      String?
+  price            Decimal
+  stock            Int     @default(0)
+  availableInTotem Boolean @default(false)
+
+  sales Sale[]
+}
+
+model Sale {
+  id            Int           @id @default(autoincrement())
+  product       Product       @relation(fields: [productId], references: [id])
+  productId     Int
+  machine       Machine?      @relation(fields: [machineId], references: [id])
+  machineId     Int?
+  employee      Employee?     @relation(fields: [employeeId], references: [id])
+  employeeId    Int?
+  quantity      Int           @default(1)
+  totalAmount   Decimal
+  paymentMethod PaymentMethod
+  createdAt     DateTime      @default(now())
+}
+
+model Attendance {
+  id         Int            @id @default(autoincrement())
+  employee   Employee       @relation(fields: [employeeId], references: [id])
+  employeeId Int
+  type       AttendanceType
+  timestamp  DateTime       @default(now())
+}
+
+model AuditLog {
+  id         Int      @id @default(autoincrement())
+  actorId    Int?
+  actorType  String?
+  action     String
+  resource   String?
+  resourceId Int?
+  data       Json?
+  createdAt  DateTime @default(now())
+}
+
+enum PaymentMethod {
+  CASH
+  PIX
+  DEBIT_CARD
+  CREDIT_CARD
+}
+
+enum TransactionType {
+  TOPUP
+  REDEEM_POINTS
+  SALE
+  REFUND
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  CASHIER
+  OPERATOR
+}
+
+enum AttendanceType {
+  IN
+  OUT
+}
