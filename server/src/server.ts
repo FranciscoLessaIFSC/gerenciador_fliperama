@@ -1,5 +1,7 @@
 import Fastify from 'fastify';
 
+import cors from '@fastify/cors'
+
 import { 
   serializerCompiler, 
   validatorCompiler, 
@@ -21,6 +23,8 @@ import { saleRoutes } from './routes/sale';
 import { attendanceRoutes } from './routes/attendance';
 
 const fastify = Fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
+
+fastify.register(cors)
 
 // Configura os compiladores do Zod no Fastify
 fastify.setValidatorCompiler(validatorCompiler);

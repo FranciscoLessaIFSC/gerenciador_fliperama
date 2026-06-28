@@ -4,9 +4,9 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Arcade Manager - Dashboard</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+	<link rel="preconnect" href="https://googleapis.com" />
+	<link rel="preconnect" href="https://gstatic.com" crossorigin />
+	<link href="https://googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="../styles.css" />
 	<link rel="stylesheet" href="dashboard.css" />
 </head>
@@ -14,22 +14,24 @@
 	<header class="topbar">
 		<h1 class="brand">Arcade Manager</h1>
 		<div class="topbar-actions">
-			<a href="/app/dashboard/ranking/" class="btn btn-admin">ranking</a>
-			<a href="../index.html" class="btn btn-admin">voltar</a>
+			<a href="/app/dashboard/ranking/" id="btn-ranking-link" class="btn btn-admin">Ranking</a>
+			<a href="../index.html" class="btn btn-admin">Voltar</a>
 		</div>
 	</header>
 
+	<!-- .dashboard-main recebe os estilos globais do topo do seu CSS -->
 	<main class="dashboard-main">
 		<section class="stats-grid" aria-label="Resumo do usuário">
 			<article class="stat-card">
 				<h2 class="stat-title">Score</h2>
-				<p class="stat-value">12.840</p>
+				<p class="stat-value" id="card-score">0</p>
 			</article>
 			<article class="stat-card">
 				<h2 class="stat-title">Credits</h2>
 				<div class="stat-value-row">
-					<p class="stat-value">47</p>
-					<a href="../credits.html">
+					<p class="stat-value" id="card-balance">0</p>
+					<!-- a tag <a> foi movida para dentro ou configurada para não quebrar o flex-row -->
+					<a href="../credits.html" id="btn-buy-credits-link" style="display: contents;">
     					<button class="btn-buy-credits" type="button" aria-label="Buy credits">+</button>
 					</a>
 				</div>
@@ -47,36 +49,16 @@
 							<th>Date</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>Space Raiders</td>
-							<td>2.900</td>
-							<td>2026-04-14</td>
-						</tr>
-						<tr>
-							<td>Turbo Kart</td>
-							<td>1.870</td>
-							<td>2026-04-13</td>
-						</tr>
-						<tr>
-							<td>Neon Fighter</td>
-							<td>3.420</td>
-							<td>2026-04-12</td>
-						</tr>
-						<tr>
-							<td>Pixel Striker</td>
-							<td>1.660</td>
-							<td>2026-04-11</td>
-						</tr>
-						<tr>
-							<td>Galaxy Rush</td>
-							<td>2.990</td>
-							<td>2026-04-10</td>
-						</tr>
+					<!-- ID adicionado para o JavaScript injetar as linhas reais da API -->
+					<tbody id="games-history-rows">
+						<!-- Linhas estáticas removidas para evitar flicker visual -->
 					</tbody>
 				</table>
 			</div>
 		</section>
 	</main>
+
+	<!-- Script de integração carregado após o DOM -->
+	<script src="dashboard.js"></script>
 </body>
 </html>

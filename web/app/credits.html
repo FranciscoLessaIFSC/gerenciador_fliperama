@@ -4,97 +4,99 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Arcade Manager - Compra de Créditos</title>
-
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
 	<link rel="stylesheet" href="styles.css" />
+	<link rel="stylesheet" href="app/dashboard/dashboard.css" />
 </head>
-
 <body>
 	<header class="topbar">
 		<h1 class="brand">Arcade Manager</h1>
-
 		<div class="topbar-actions">
-			<a href="../app/dashboard/index.html" class="btn btn-admin">Voltar</a>
+			<a href="#" id="btn-back-dashboard" class="btn btn-admin">Voltar</a>
 		</div>
 	</header>
 
-	<main class="credits-page">
-		<section class="credits-card">
-			<h2 class="credits-title">Compra de Créditos</h2>
-
-			<table class="credits-table">
+	<main class="credits-page" style="width: min(1200px, 100% - 32px); margin: 0 auto; padding: var(--space-8) 0; display: grid; gap: var(--space-6);">
+		
+		<!-- Tabela de Compras -->
+		<section class="credits-card" style="background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6);">
+			<h2 class="credits-title" style="margin-bottom: var(--space-4); font-size: 1.4rem;">Compra de Créditos</h2>
+			<table class="games-table" style="width: 100%; border-collapse: collapse;">
 				<thead>
 					<tr>
 						<th>Quantidade</th>
-						<th>Valor</th>
-						<th>Ação</th>
+						<!-- Forçamos o alinhamento à direita no cabeçalho para acompanhar o comportamento do CSS da 2ª coluna -->
+						<th style="text-align: right;">Valor</th>
+						<th style="text-align: right;">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>1 crédito</td>
-						<td>R$ 5,00</td>
-						<td><a href="pagar.html" class="credits-buy-btn">Comprar</a></td>
+						<!-- Adicionado text-align: right para alinhar com o cabeçalho e respeitar a regra mono do CSS -->
+						<td style="text-align: right;">R$ 5,00</td>
+						<td style="text-align: right;"><button class="btn-buy-action" data-credits="1" data-amount="5" style="padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: var(--theme-primary); color: #000; border: none; font-weight: 700; cursor: pointer;">Comprar</button></td>
 					</tr>
 					<tr>
 						<td>5 créditos</td>
-						<td>R$ 25,00</td>
-						<td><a href="pagar.html" class="credits-buy-btn">Comprar</a></td>
+						<td style="text-align: right;">R$ 25,00</td>
+						<td style="text-align: right;"><button class="btn-buy-action" data-credits="5" data-amount="25" style="padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: var(--theme-primary); color: #000; border: none; font-weight: 700; cursor: pointer;">Comprar</button></td>
 					</tr>
 					<tr>
 						<td>10 créditos</td>
-						<td>R$ 50,00</td>
-						<td><a href="pagar.html" class="credits-buy-btn">Comprar</a></td>
+						<td style="text-align: right;">R$ 50,00</td>
+						<td style="text-align: right;"><button class="btn-buy-action" data-credits="10" data-amount="50" style="padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: var(--theme-primary); color: #000; border: none; font-weight: 700; cursor: pointer;">Comprar</button></td>
 					</tr>
 					<tr>
 						<td>20 créditos</td>
-						<td>R$ 100,00</td>
-						<td><a href="pagar.html" class="credits-buy-btn">Comprar</a></td>
+						<td style="text-align: right;">R$ 100,00</td>
+						<td style="text-align: right;"><button class="btn-buy-action" data-credits="20" data-amount="100" style="padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: var(--theme-primary); color: #000; border: none; font-weight: 700; cursor: pointer;">Comprar</button></td>
 					</tr>
 				</tbody>
 			</table>
 		</section>
 
-		<br>
-
-		<section class="credits-card">
-			<h2 class="credits-title">Troca de pontos</h2>
-
-			<table class="credits-table">
+		<!-- Tabela de Trocas -->
+		<section class="credits-card" style="background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-6);">
+			<h2 class="credits-title" style="margin-bottom: var(--space-4); font-size: 1.4rem;">Troca de pontos</h2>
+			<table class="games-table" style="width: 100%; border-collapse: collapse;">
 				<thead>
 					<tr>
 						<th>Quantidade</th>
-						<th>Valor</th>
-						<th>Ação</th>
+						<!-- Forçamos o alinhamento à direita no cabeçalho para acompanhar o comportamento do CSS da 2ª coluna -->
+						<th style="text-align: right;">Valor</th>
+						<th style="text-align: right;">Ação</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>1 crédito</td>
-						<td>100 Pontos</td>
-						<td><a href="trocartoken.html" class="credits-buy-btn-troca">Trocar</a></td>
+						<!-- Adicionado text-align: right para alinhar com o cabeçalho e respeitar a regra mono do CSS -->
+						<td style="text-align: right;">100 Pontos</td>
+						<td style="text-align: right;"><button class="btn-redeem-action" data-credits="1" data-points="100" style="padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: transparent; color: var(--theme-primary); border: 1px solid var(--theme-primary); font-weight: 700; cursor: pointer;">Trocar</button></td>
 					</tr>
 					<tr>
 						<td>5 créditos</td>
-						<td>500 Pontos</td>
-						<td><a href="trocartoken.html" class="credits-buy-btn-troca">Trocar</a></td>
+						<td style="text-align: right;">500 Pontos</td>
+						<td style="text-align: right;"><button class="btn-redeem-action" data-credits="5" data-points="500" style="padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: transparent; color: var(--theme-primary); border: 1px solid var(--theme-primary); font-weight: 700; cursor: pointer;">Trocar</button></td>
 					</tr>
 					<tr>
 						<td>10 créditos</td>
-						<td>1000 Pontos</td>
-						<td><a href="trocartoken.html" class="credits-buy-btn-troca">Trocar</a></td>
+						<td style="text-align: right;">1000 Pontos</td>
+						<td style="text-align: right;"><button class="btn-redeem-action" data-credits="10" data-points="1000" style="padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: transparent; color: var(--theme-primary); border: 1px solid var(--theme-primary); font-weight: 700; cursor: pointer;">Trocar</button></td>
 					</tr>
 					<tr>
 						<td>20 créditos</td>
-						<td>2000 Pontos</td>
-						<td><a href="trocartoken.html" class="credits-buy-btn-troca">Trocar</a></td>
+						<td style="text-align: right;">2000 Pontos</td>
+						<td style="text-align: right;"><button class="btn-redeem-action" data-credits="20" data-points="2000" style="padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); background: transparent; color: var(--theme-primary); border: 1px solid var(--theme-primary); font-weight: 700; cursor: pointer;">Trocar</button></td>
 					</tr>
 				</tbody>
 			</table>
 		</section>
 	</main>
+
+	<script src="credits.js"></script>
 </body>
 </html>
