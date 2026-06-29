@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="../styles.css" />
 	<link rel="stylesheet" href="admin.css" />
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
 </head>
 <body class="admin-body">
 	<div class="admin-shell">
@@ -19,14 +18,14 @@
 				<a href="index.html" class="admin-brand">Menu Administrativo</a>
 				<button type="button" class="sidebar-toggle" data-sidebar-toggle aria-label="Recolher menu">||</button>
 			</div>
-				<nav class="sidebar-menu">
+			<nav class="sidebar-menu">
 				<a href="index.html" class="menu-link"><span class="menu-icon">DB</span><span class="menu-label">Dashboard</span></a>
 				<a href="users.html" class="menu-link is-active"><span class="menu-icon">US</span><span class="menu-label">Usuários</span></a>
 				<a href="machines.html" class="menu-link"><span class="menu-icon">MC</span><span class="menu-label">Maquinas</span></a>
 				<a href="reports.html" class="menu-link"><span class="menu-icon">RP</span><span class="menu-label">Relatórios</span></a>
 				<a href="employees.html" class="menu-link"><span class="menu-icon">FC</span><span class="menu-label">Funcionários</span></a>
 				<a href="pagamento.html" class="menu-link"><span class="menu-icon">PG</span><span class="menu-label">Pagamento</span></a>
-				<a href="promoção.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
+				<a href="promotion.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
 				<a href="estoque.html" class="menu-link"><span class="menu-icon">ES</span><span class="menu-label">Estoque</span></a>
 			</nav>
 		</aside>
@@ -48,16 +47,14 @@
 							<thead>
 								<tr>
 									<th>Nome</th>
-									<th>Idade</th>
-									<th>Cartão</th>
+									<th>Cadastro</th>
+									<th>Cartão (UID)</th>
 									<th>Créditos</th>
-									<th></th>
+									<th>Ações</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr><td>Ana Souza</td><td>18</td><td>123211</td><td>47</td><td><a href="" class="credits-buy-btn" data-bs-toggle="modal" data-bs-target="#modalHist">Historico</a>
-								<tr><td>Leo Costa</td><td>12</td><td>533911</td><td>22</td><td><a href="" class="credits-buy-btn" data-bs-toggle="modal" data-bs-target="#modalHist">Historico</a>
-								<tr><td>Marina Luz</td><td>32</td><td>411232</td><td>95</td><td><a href="" class="credits-buy-btn" data-bs-toggle="modal" data-bs-target="#modalHist">Historico</a>
+							<tbody id="admin-users-rows">
+								<!-- Preenchido via API -->
 							</tbody>
 						</table>
 					</div>
@@ -65,69 +62,48 @@
 			</main>
 		</div>
 	</div>
-    </main>
+
 	<!-- Modais - INI -->
-	  <div class="modal fade" id="modalHist" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded-4">
-            <div class="modal-header border-0 pb-0">
-                <div>
-                    <h5 class="modal-title fw-bold mb-1">
-                        Histórico Recente
-                    </h5>
-                    <small class="text-muted">
-                        Últimas partidas jogadas por este usuário
-                    </small>
-                </div>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
-                </button>
-            </div>
-            
-            <div class="modal-body">
-                <div class="admin-table-wrap">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>Jogo</th>
-                                <th>Pontuação</th>
-                                <th>Créditos</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Street Fighter V</td>
-                                <td>14,500 pts</td>
-                                <td>-3 CR</td>
-                            </tr>
-                            <tr>
-                                <td>Pac-Man Neon</td>
-                                <td>89,200 pts</td>
-                                <td>-2 CR</td>
-                            </tr>
-                            <tr>
-                                <td>Daytona USA</td>
-                                <td>2º Lugar</td>
-                                <td>-4 CR</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <div class="modal-footer border-0 pt-0 justify-content-center mt-3">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="modal fade" id="modalHist" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content rounded-4 bg-dark text-light border-secondary">
+				<div class="modal-header border-0 pb-0">
+					<div>
+						<h5 class="modal-title fw-bold mb-1" id="modal-user-name">Histórico Recente</h5>
+						<small class="text-muted">Últimas partidas jogadas por este usuário</small>
+					</div>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="admin-table-wrap">
+						<table class="admin-table w-100">
+							<thead>
+								<tr>
+									<th>Jogo</th>
+									<th>Pontuação</th>
+									<th>Créditos</th>
+								</tr>
+							</thead>
+							<tbody id="modal-history-rows">
+								<!-- Histórico do usuário via API -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer border-0 pt-0 justify-content-center mt-3">
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- Modais - FIM -->
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
-</html>
+
+	<!-- Scripts de Terceiros -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+	
+	<!-- Script de Integração -->
 	<script src="admin.js"></script>
+	<script src="admin-users.js"></script>
 </body>
 </html>

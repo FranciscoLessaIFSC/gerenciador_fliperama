@@ -115,6 +115,86 @@ export async function cardRoutes(fastify: FastifyInstance) {
       }
     }
   );
+
+    // 1. GET /cards/admin/list -> Lista todos os usuários cadastrados
+  app.get(
+    '/admin/list',
+    {
+      schema: {
+        description: 'Lista todos os cartões para o painel administrativo',
+        response: {
+          200: z.array(
+            z.object({
+              id: z.number(),
+              uid: z.string(),
+              name: z.string().nullable(),
+              balance: z.number(),
+              createdAt: z.string(),
+            })
+          ),
+        },
+      },
+    },
+    async (request, reply) => {
+      const cards = await prisma.card.findMany({
+        orderBy: { createdAt: 'desc' },
+      });
+
+      const formattedCards = cards.map(c => ({
+        id: c.id,
+        uid: c.uid,
+        name: c.name,
+        balance: Number(c.balance),
+        createdAt: c.createdAt.toLocaleDateString('pt-BR'),
+      }));
+
+      return reply.status(200).send(formattedCards);
+    }
+  );
+
+  // 2. GET /cards/admin/:id/history -> Histórico do modal para um cartão específico
+  app.get(
+    '/admin/:id/history',
+    {
+      schema: {
+        description: 'Busca o histórico recente de scores de um usuário pelo ID',
+        params: z.object({
+          id: z.string(),
+        }),
+        response: {
+          200: z.array(
+            z.object({
+              gameName: z.string(),
+              points: z.string(),
+              creditsUsed: z.string(),
+            })
+          ),
+        },
+      },
+    },
+    async (request, reply) => {
+      const { id } = request.params;
+
+      const scores = await prisma.score.findMany({
+        where: { cardId: Number(id) },
+        take: 5,
+        orderBy: { recordedAt: 'desc' },
+        include: {
+          game: { select: { name: true } }
+        }
+      });
+
+      // Mapeia os dados fingindo o custo de créditos padrão (ex: -2 CR) ou buscando de transações se preferir
+      const history = scores.map(s => ({
+        gameName: s.game?.name || 'Jogo Desconhecido',
+        points: `${s.points.toLocaleString('pt-BR')} pts`,
+        creditsUsed: s.metadata && (s.metadata as any).cost ? `-${(s.metadata as any).cost} CR` : '-2 CR'
+      }));
+
+      return reply.status(200).send(history);
+    }
+  );
+  
   // UPDATE
   app.put('/:uid', {
     schema: {

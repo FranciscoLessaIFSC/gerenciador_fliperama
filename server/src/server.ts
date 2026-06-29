@@ -21,10 +21,14 @@ import { financialTransactionRoutes } from './routes/financial-transaction';
 import { productRoutes } from './routes/product';
 import { saleRoutes } from './routes/sale';
 import { attendanceRoutes } from './routes/attendance';
+import { reportRoutes } from './routes/report';
 
 const fastify = Fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
 
-fastify.register(cors)
+fastify.register(cors, {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+})
 
 // Configura os compiladores do Zod no Fastify
 fastify.setValidatorCompiler(validatorCompiler);
@@ -43,6 +47,7 @@ fastify.register(financialTransactionRoutes, { prefix: '/financial-transactions'
 fastify.register(productRoutes, { prefix: '/products' });
 fastify.register(saleRoutes, { prefix: '/sales' });
 fastify.register(attendanceRoutes, { prefix: '/attendances' });
+fastify.register(reportRoutes, { prefix: '/reports' });
 
 const start = async () => {
   try {

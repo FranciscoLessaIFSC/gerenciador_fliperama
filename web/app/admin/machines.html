@@ -17,17 +17,16 @@
 				<a href="index.html" class="admin-brand">Menu Administrativo</a>
 				<button type="button" class="sidebar-toggle" data-sidebar-toggle aria-label="Recolher menu">||</button>
 			</div>
-				<nav class="sidebar-menu">
+			<nav class="sidebar-menu">
 				<a href="index.html" class="menu-link"><span class="menu-icon">DB</span><span class="menu-label">Dashboard</span></a>
 				<a href="users.html" class="menu-link"><span class="menu-icon">US</span><span class="menu-label">Usuários</span></a>
 				<a href="machines.html" class="menu-link is-active"><span class="menu-icon">MC</span><span class="menu-label">Maquinas</span></a>
 				<a href="reports.html" class="menu-link"><span class="menu-icon">RP</span><span class="menu-label">Relatórios</span></a>
 				<a href="employees.html" class="menu-link"><span class="menu-icon">FC</span><span class="menu-label">Funcionários</span></a>
 				<a href="pagamento.html" class="menu-link"><span class="menu-icon">PG</span><span class="menu-label">Pagamento</span></a>
-				<a href="promoção.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
+				<a href="promotion.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
 				<a href="estoque.html" class="menu-link"><span class="menu-icon">ES</span><span class="menu-label">Estoque</span></a>
 			</nav>
-				
 		</aside>
 
 		<div class="admin-content-wrap">
@@ -54,10 +53,8 @@
 									<th>Faturamento</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr><td>Space Raiders #03</td><td>Ala A</td><td>Online</td><td>Hoje</td><td> 14:21</td><td>R$1000</td></tr>
-								<tr><td>Turbo Kart #07</td><td>Ala B</td><td>Manutenção</td><td> 25/05</td><td> 14:21</td><td>R$500</td></tr>
-								<tr><td>Neon Fighter #05</td><td>Ala A</td><td>Online</td><td>Hoje</td><td> 14:21</td><td>R$6700</td></tr>
+							<tbody id="admin-machines-rows">
+								<!-- Conteúdo inserido dinamicamente via API -->
 							</tbody>
 						</table>
 					</div>
@@ -65,9 +62,7 @@
 				<section>
 					<article class="admin-card games-card">
                         <h2>Jogos Hoje</h2>
-
-                        <p class="kpi-value">1.426</p>
-
+                        <p class="kpi-value" id="total-games-today">0</p>
                         <div class="mini-chart">
                             <canvas id="dailyMachines"></canvas>
                         </div>
@@ -78,5 +73,7 @@
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="admin.js"></script>
+	<!-- Novo script dedicado para a lógica de integração desta view -->
+	<script src="admin-machines.js"></script>
 </body>
 </html>

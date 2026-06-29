@@ -56,4 +56,41 @@ export async function employeeRoutes(fastify: FastifyInstance) {
     await prisma.employee.delete({ where: { id: request.params.id } });
     return reply.status(204).send();
   });
+
+  app.get(
+    '/admin/list',
+    {
+      schema: {
+        description: 'Lista todos os funcionários ativos para o painel administrativo',
+        response: {
+          200: z.array(
+            z.object({
+              id: z.number(),
+              name: z.string(),
+              role: z.string(),
+            })
+          ),
+          500: z.object({ error: z.string() }),
+        },
+      },
+    },
+    async (request, reply) => {
+      try {
+        const employees = await prisma.employee.findMany({
+          where: { active: true },
+          select: {
+            id: true,
+            name: true,
+            role: true,
+          },
+          orderBy: { name: 'asc' },
+        });
+
+        return reply.status(200).send(employees);
+      } catch (error) {
+        request.log.error(error);
+        return reply.status(500).send({ error: 'Erro interno ao listar funcionários.' });
+      }
+    }
+  );
 }

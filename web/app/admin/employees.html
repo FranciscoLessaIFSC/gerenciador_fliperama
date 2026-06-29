@@ -3,12 +3,34 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Arcade Manager - Admin Maquinas</title>
+	<title>Arcade Manager - Admin Funcionários</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="../styles.css" />
 	<link rel="stylesheet" href="admin.css" />
+	<style>
+		/* Estilização para o Modal Nativo <dialog> acoplado ao tema escuro */
+		.emp-modal {
+			background: var(--color-bg-surface);
+			border: 1px solid var(--color-border);
+			border-radius: var(--radius-lg);
+			color: var(--color-text-primary);
+			padding: var(--space-6);
+			width: min(420px, 100% - 32px);
+			box-shadow: var(--shadow-xl);
+		}
+		.emp-modal::backdrop { background: rgba(0, 0, 0, 0.75); }
+		.emp-form { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
+		.emp-form label { display: grid; gap: var(--space-1); font-size: 0.9rem; font-weight: 500; color: var(--color-text-secondary); }
+		.emp-form input, .emp-form select {
+			background: #0d1326; border: 1px solid var(--color-border); padding: var(--space-2);
+			border-radius: var(--radius-md); color: #fff; font-family: inherit;
+		}
+		.emp-actions-row { display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-2); }
+		.card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); }
+		.btn-edit-action { background: transparent; border: 1px solid var(--theme-primary); color: var(--theme-primary); cursor: pointer; padding: var(--space-1) var(--space-3); border-radius: var(--radius-md); font-weight: 500; }
+	</style>
 </head>
 <body class="admin-body">
 	<div class="admin-shell">
@@ -24,9 +46,8 @@
 				<a href="reports.html" class="menu-link"><span class="menu-icon">RP</span><span class="menu-label">Relatórios</span></a>
                 <a href="employees.html" class="menu-link is-active"><span class="menu-icon">FC</span><span class="menu-label">Funcionários</span></a>
 				<a href="pagamento.html" class="menu-link"><span class="menu-icon">PG</span><span class="menu-label">Pagamento</span></a>
-				<a href="promoção.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
+				<a href="promotion.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
 				<a href="estoque.html" class="menu-link"><span class="menu-icon">ES</span><span class="menu-label">Estoque</span></a>
-
 			</nav>
 		</aside>
 
@@ -41,20 +62,21 @@
 
 			<main class="admin-main">
 				<section class="admin-card" aria-label="Status dos funcionários">
-					<h2>Controle de funcionários</h2>
+					<div class="card-header-flex">
+						<h2 style="margin: 0;">Controle de funcionários</h2>
+						<button type="button" id="btn-open-create" class="btn btn-admin" style="font-size: 0.9rem;">+ Novo Funcionário</button>
+					</div>
 					<div class="admin-table-wrap">
 						<table class="admin-table">
 							<thead>
 								<tr>
 									<th>Nome</th>
 									<th>Cargo</th>
+									<th style="text-align: right;">Ações</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr><td>Jordan Silva</td><td>Gerente</td></tr>
-								<tr><td>Breno Pereira</td><td>Caixa</td></tr>
-								<tr><td>João Santos</td><td>Atentende</td></tr>
-								<tr><td>Isadora Pinto</td><td>Manuntentora</td></tr>
+							<tbody id="admin-employees-rows">
+								<!-- Conteúdo assíncrono via API -->
 							</tbody>
 						</table>
 					</div>
@@ -62,6 +84,42 @@
 			</main>
 		</div>
 	</div>
+
+	<!-- Modal de Criação / Edição de Funcionários -->
+	<dialog id="empModal" class="emp-modal">
+		<h3 id="modal-title-text" style="margin: 0; font-size: 1.3rem;">Novo Funcionário</h3>
+		<form id="empForm" class="emp-form">
+			<!-- Input oculto para armazenar o ID ao editar -->
+			<input type="hidden" id="form-emp-id" value="">
+
+			<label> Nome Completo
+				<input type="text" id="form-name" required placeholder="Ex: Jordan Silva">
+			</label>
+			
+			<!-- Bloco wrapper do e-mail (será ocultado dinamicamente ao editar) -->
+			<div id="email-field-wrapper">
+				<label> E-mail de Acesso
+					<input type="email" id="form-email" placeholder="jordan@arcade.com">
+				</label>
+			</div>
+
+			<label> Cargo / Função Administrativa
+				<select id="form-role" required>
+					<option value="CASHIER">Caixa</option>
+					<option value="OPERATOR">Operador / Técnico</option>
+					<option value="MANAGER">Gerente</option>
+					<option value="ADMIN">Administrador</option>
+				</select>
+			</label>
+
+			<div class="emp-actions-row">
+				<button type="button" id="btn-close-modal" class="btn btn-admin" style="background: transparent; color: #fff; border: 1px solid var(--color-border);">Cancelar</button>
+				<button type="submit" class="btn btn-admin">Salvar Colaborador</button>
+			</div>
+		</form>
+	</dialog>
+
 	<script src="admin.js"></script>
+	<script src="admin-employees.js"></script>
 </body>
 </html>

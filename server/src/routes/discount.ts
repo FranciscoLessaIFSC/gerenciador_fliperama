@@ -53,4 +53,56 @@ export async function discountRoutes(fastify: FastifyInstance) {
     await prisma.discount.delete({ where: { id: request.params.id } });
     return reply.status(204).send();
   });
+
+    app.get(
+    '/admin/list',
+    {
+      schema: {
+        description: 'Lista todas as promoções e cupons ativos para o painel administrativo',
+        response: {
+          200: z.array(
+            z.object({
+              id: z.number(),
+              code: z.string(),
+              description: z.string().nullable(),
+              startsAt: z.string(),
+              endsAt: z.string(),
+              minAmount: z.number(),
+              percent: z.number(),
+            })
+          ),
+          500: z.object({ error: z.string() }),
+        },
+      },
+    },
+    async (request, reply) => {
+      try {
+        const dbDiscounts = await prisma.discount.findMany({
+          where: { active: true },
+          orderBy: { startsAt: 'desc' },
+        });
+
+        const formattedDiscounts = dbDiscounts.map((disc) => {
+          const formatDate = (date: Date | null) => 
+            date ? new Date(date).toLocaleDateString('pt-BR') : '--/--/----';
+
+          return {
+            id: disc.id,
+            code: disc.code, // Usado como o identificador/nome da promoção
+            description: disc.description,
+            startsAt: formatDate(disc.startsAt),
+            endsAt: formatDate(disc.endsAt),
+            // Mapeia a coluna amount como o valor estipulado (ex: Valor Mínimo de compra)
+            minAmount: disc.amount ? Number(disc.amount) : 0,
+            percent: disc.percent || 0,
+          };
+        });
+
+        return reply.status(200).send(formattedDiscounts);
+      } catch (error) {
+        request.log.error(error);
+        return reply.status(500).send({ error: 'Erro interno ao listar promoções.' });
+      }
+    }
+  );
 }

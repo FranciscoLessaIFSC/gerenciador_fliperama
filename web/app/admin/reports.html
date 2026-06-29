@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Arcade Manager - Admin Relatorios</title>
+	<title>Arcade Manager - Admin Relatórios</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -24,7 +24,7 @@
 				<a href="reports.html" class="menu-link is-active"><span class="menu-icon">RP</span><span class="menu-label">Relatórios</span></a>
 				<a href="employees.html" class="menu-link"><span class="menu-icon">FC</span><span class="menu-label">Funcionários</span></a>
 				<a href="pagamento.html" class="menu-link"><span class="menu-icon">PG</span><span class="menu-label">Pagamento</span></a>
-				<a href="promoção.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
+				<a href="promotion.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
 				<a href="estoque.html" class="menu-link"><span class="menu-icon">ES</span><span class="menu-label">Estoque</span></a>
 			</nav>
 		</aside>
@@ -50,10 +50,8 @@
 									<th>Variação</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr><td>Receita</td><td>R$ 9.240</td><td>+8%</td></tr>
-								<tr><td>Tickets</td><td>1.426</td><td>+3%</td></tr>
-								<tr><td>Tempo médio</td><td>34 min</td><td>-2%</td></tr>
+							<tbody id="admin-reports-rows">
+								<!-- Inserido dinamicamente via API -->
 							</tbody>
 						</table>
 					</div>
@@ -62,5 +60,7 @@
 		</div>
 	</div>
 	<script src="admin.js"></script>
+	<!-- Script específico para renderizar as métricas analíticas -->
+	<script src="admin-reports.js"></script>
 </body>
 </html>

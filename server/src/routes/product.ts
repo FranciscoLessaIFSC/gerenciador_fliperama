@@ -51,4 +51,43 @@ export async function productRoutes(fastify: FastifyInstance) {
     await prisma.product.delete({ where: { id: request.params.id } });
     return reply.status(204).send();
   });
+
+    app.get(
+    '/admin/list',
+    {
+      schema: {
+        description: 'Lista todos os produtos e níveis de estoque para o painel administrativo',
+        response: {
+          200: z.array(
+            z.object({
+              id: z.number(),
+              sku: z.string(),
+              name: z.string(),
+              stock: z.number(),
+            })
+          ),
+          500: z.object({ error: z.string() }),
+        },
+      },
+    },
+    async (request, reply) => {
+      try {
+        const dbProducts = await prisma.product.findMany({
+          orderBy: { name: 'asc' },
+        });
+
+        const formattedProducts = dbProducts.map((prod) => ({
+          id: prod.id,
+          sku: prod.sku || String(prod.id), // Fallback caso o SKU esteja nulo
+          name: prod.name,
+          stock: prod.stock,
+        }));
+
+        return reply.status(200).send(formattedProducts);
+      } catch (error) {
+        request.log.error(error);
+        return reply.status(500).send({ error: 'Erro interno ao listar o estoque.' });
+      }
+    }
+  );
 }

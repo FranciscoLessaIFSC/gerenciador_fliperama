@@ -3,31 +3,31 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Arcade Manager - Admin Estoque</title>
+	<title>Arcade Manager - Admin Promoções</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="../styles.css" />
 	<link rel="stylesheet" href="admin.css" />
 	<style>
-		/* Estilização acoplada para o Modal Nativo <dialog> */
-		.stock-modal {
+		/* Estilização para o Modal Nativo <dialog> acoplado ao tema escuro */
+		.promo-modal {
 			background: var(--color-bg-surface);
 			border: 1px solid var(--color-border);
 			border-radius: var(--radius-lg);
 			color: var(--color-text-primary);
 			padding: var(--space-6);
-			width: min(450px, 100% - 32px);
+			width: min(480px, 100% - 32px);
 			box-shadow: var(--shadow-xl);
 		}
-		.stock-modal::backdrop { background: rgba(0, 0, 0, 0.75); }
-		.stock-form { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
-		.stock-form label { display: grid; gap: var(--space-1); font-size: 0.9rem; font-weight: 500; color: var(--color-text-secondary); }
-		.stock-form input {
+		.promo-modal::backdrop { background: rgba(0, 0, 0, 0.75); }
+		.promo-form { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
+		.promo-form label { display: grid; gap: var(--space-1); font-size: 0.9rem; font-weight: 500; color: var(--color-text-secondary); }
+		.promo-form input {
 			background: #0d1326; border: 1px solid var(--color-border); padding: var(--space-2);
 			border-radius: var(--radius-md); color: #fff; font-family: inherit;
 		}
-		.stock-actions-row { display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-2); }
+		.promo-actions-row { display: flex; gap: var(--space-3); justify-content: flex-end; margin-top: var(--space-2); }
 		.card-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); }
 		.btn-edit-action { background: transparent; border: 1px solid var(--theme-primary); color: var(--theme-primary); cursor: pointer; padding: var(--space-1) var(--space-3); border-radius: var(--radius-md); font-weight: 500; }
 	</style>
@@ -46,8 +46,8 @@
 				<a href="reports.html" class="menu-link"><span class="menu-icon">RP</span><span class="menu-label">Relatórios</span></a>
                 <a href="employees.html" class="menu-link"><span class="menu-icon">FC</span><span class="menu-label">Funcionários</span></a>
 				<a href="pagamento.html" class="menu-link"><span class="menu-icon">PG</span><span class="menu-label">Pagamento</span></a>
-                <a href="promotion.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
-                <a href="estoque.html" class="menu-link is-active"><span class="menu-icon">ES</span><span class="menu-label">Estoque</span></a>
+                <a href="promotion.html" class="menu-link is-active"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
+				<a href="estoque.html" class="menu-link"><span class="menu-icon">ES</span><span class="menu-label">Estoque</span></a>
 			</nav>
 		</aside>
 
@@ -55,29 +55,31 @@
 			<header class="admin-topbar">
 				<div class="admin-topbar-actions">
 					<button type="button" class="sidebar-toggle sidebar-toggle-mobile" data-sidebar-toggle aria-label="Abrir menu">||</button>
-					<h1 class="admin-topbar-title">Estoque</h1>
+					<h1 class="admin-topbar-title">Promoções</h1>
 				</div>
 				<a href="../index.html" class="btn btn-admin">sair</a>
 			</header>
 
 			<main class="admin-main">
-				<section class="admin-card" aria-label="Status do estoque">
+				<section class="admin-card" aria-label="Lista de promoções">
 					<div class="card-header-flex">
-						<h2 style="margin: 0;">Estoque disponível</h2>
-						<button type="button" id="btn-open-create" class="btn btn-admin" style="font-size: 0.9rem;">+ Novo Produto</button>
+						<h2 style="margin: 0;">Promoções Ativas</h2>
+						<button type="button" id="btn-open-create" class="btn btn-admin" style="font-size: 0.9rem;">+ Nova Promoção</button>
 					</div>
 					<div class="admin-table-wrap">
 						<table class="admin-table">
 							<thead>
 								<tr>
-									<th>Produto</th>
-									<th>ID / SKU</th>
-									<th>Quantidade</th>
+									<th>Nome (Código)</th>
+									<th>Data de início</th>
+									<th>Data fim</th>
+                                    <th>Valor mínimo</th>
+                                    <th>Desconto (%)</th>
 									<th style="text-align: right;">Ações</th>
 								</tr>
 							</thead>
-							<tbody id="admin-products-rows">
-								<!-- Inserido dinamicamente via API -->
+							<tbody id="admin-discounts-rows">
+								<!-- Inserido dinamicamente via JS -->
 							</tbody>
 						</table>
 					</div>
@@ -86,35 +88,43 @@
 		</div>
 	</div>
 
-	<!-- Modal de Criação / Edição de Produtos -->
-	<dialog id="stockModal" class="stock-modal">
-		<h3 id="modal-title-text" style="margin: 0; font-size: 1.3rem;">Novo Produto</h3>
-		<form id="stockForm" class="stock-form">
+	<!-- Modal Único de Criação / Edição de Regras de Desconto -->
+	<dialog id="promoModal" class="promo-modal">
+		<h3 id="modal-title-text" style="margin: 0; font-size: 1.3rem;">Nova Promoção</h3>
+		<form id="promoForm" class="promo-form">
 			<!-- Input oculto para armazenar o ID ao editar -->
-			<input type="hidden" id="form-product-id" value="">
+			<input type="hidden" id="form-promo-id" value="">
 
-			<label> Nome do Produto
-				<input type="text" id="form-name" required placeholder="Ex: Ficha de Metal">
+			<label> Nome / Código do Cupom
+				<input type="text" id="form-code" required placeholder="Ex: DIADASMAES">
 			</label>
-			<label> SKU / Identificador Único
-				<input type="text" id="form-sku" required placeholder="Ex: SKU-FICHA-01">
+			<label> Descrição da Campanha
+				<input type="text" id="form-description" placeholder="Ex: Campanha de maio">
 			</label>
 			<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3);">
-				<label> Preço de Venda (R$)
-					<input type="number" id="form-price" min="0.01" step="0.01" required placeholder="5.00">
+				<label> Data de Início
+					<input type="date" id="form-starts-at" required>
 				</label>
-				<label> Quantidade Inicial
-					<input type="number" id="form-stock" min="0" required placeholder="100">
+				<label> Data de Término
+					<input type="date" id="form-ends-at" required>
 				</label>
 			</div>
-			<div class="stock-actions-row">
+			<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3);">
+				<label> Valor Mínimo (R$)
+					<input type="number" id="form-amount" min="0" value="0" step="0.01" required>
+				</label>
+				<label> Desconto (%)
+					<input type="number" id="form-percent" min="1" max="100" required>
+				</label>
+			</div>
+			<div class="promo-actions-row">
 				<button type="button" id="btn-close-modal" class="btn btn-admin" style="background: transparent; color: #fff; border: 1px solid var(--color-border);">Cancelar</button>
-				<button type="submit" class="btn btn-admin">Salvar Item</button>
+				<button type="submit" class="btn btn-admin">Salvar Regra</button>
 			</div>
 		</form>
 	</dialog>
 
 	<script src="admin.js"></script>
-	<script src="admin-products.js"></script>
+	<script src="admin-discounts.js"></script>
 </body>
 </html>

@@ -3,12 +3,26 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Arcade Manager - Admin Maquinas</title>
+	<title>Arcade Manager - Admin Pagamentos</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="../styles.css" />
 	<link rel="stylesheet" href="admin.css" />
+	<style>
+		.pay-modal {
+			background: var(--color-bg-surface); border: 1px solid var(--color-border);
+			border-radius: var(--radius-lg); color: var(--color-text-primary);
+			padding: var(--space-6); width: min(420px, 100% - 32px); box-shadow: var(--shadow-xl);
+		}
+		.pay-modal::backdrop { background: rgba(0, 0, 0, 0.75); }
+		.pay-form { display: grid; gap: var(--space-4); margin-top: var(--space-4); }
+		.pay-form label { display: grid; gap: var(--space-1); font-size: 0.9rem; color: var(--color-text-secondary); }
+		.pay-form input { background: #0d1326; border: 1px solid var(--color-border); padding: var(--space-2); border-radius: var(--radius-md); color: #fff; }
+		.pay-actions-row { display: flex; gap: var(--space-3); justify-content: flex-end; }
+		.btn-row-action { background: transparent; border: 1px solid var(--theme-primary); color: var(--theme-primary); cursor: pointer; padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); font-size: 0.85rem; }
+		.btn-row-delete { border-color: #ff5252; color: #ff5252; margin-left: 4px; }
+	</style>
 </head>
 <body class="admin-body">
 	<div class="admin-shell">
@@ -17,17 +31,16 @@
 				<a href="index.html" class="admin-brand">Menu Administrativo</a>
 				<button type="button" class="sidebar-toggle" data-sidebar-toggle aria-label="Recolher menu">||</button>
 			</div>
-				<nav class="sidebar-menu">
+			<nav class="sidebar-menu">
 				<a href="index.html" class="menu-link"><span class="menu-icon">DB</span><span class="menu-label">Dashboard</span></a>
 				<a href="users.html" class="menu-link"><span class="menu-icon">US</span><span class="menu-label">Usuários</span></a>
 				<a href="machines.html" class="menu-link"><span class="menu-icon">MC</span><span class="menu-label">Maquinas</span></a>
 				<a href="reports.html" class="menu-link"><span class="menu-icon">RP</span><span class="menu-label">Relatórios</span></a>
                 <a href="employees.html" class="menu-link"><span class="menu-icon">FC</span><span class="menu-label">Funcionários</span></a>
 				<a href="pagamento.html" class="menu-link is-active"><span class="menu-icon">PG</span><span class="menu-label">Pagamento</span></a>
-				<a href="promoção.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
+				<a href="promotion.html" class="menu-link"><span class="menu-icon">PR</span><span class="menu-label">Promoção</span></a>
 				<a href="estoque.html" class="menu-link"><span class="menu-icon">ES</span><span class="menu-label">Estoque</span></a>
 			</nav>
-				
 		</aside>
 
 		<div class="admin-content-wrap">
@@ -40,24 +53,22 @@
 			</header>
 
 			<main class="admin-main">
-				<section class="admin-card" aria-label="Status das maquinas">
-					<h2>Pagamentos</h2>
+				<section class="admin-card" aria-label="Folha de pagamentos">
+					<h2>Controle de Folha Salarial</h2>
 					<div class="admin-table-wrap">
 						<table class="admin-table">
 							<thead>
 								<tr>
-									<th>Funcionários</th>
-									<th>Salário</th>
+									<th>Funcionário</th>
+									<th>Último Salário Pago</th>
 									<th>Dados Bancários</th>
                                     <th>Horas Trabalhadas</th>
                                     <th>Faltas</th>
+									<th style="text-align: right;">Ações</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr><td>Maria</td><td>R$ 1300</td><td>10531201202</td><td>100h</td><td>3</td></tr>
-								<tr><td>Neymar</td><td> R$ 2000</td><td>1321233231</td><td>100h</td><td>2</td></tr>
-								<tr><td>CR7</td><td>R$ 1000</td><td>312314123</td><td>100h</td><td>1</td></tr>
-                                
+							<tbody id="admin-payments-rows">
+								<!-- Inserido dinamicamente via JS -->
 							</tbody>
 						</table>
 					</div>
@@ -65,6 +76,28 @@
 			</main>
 		</div>
 	</div>
+
+	<!-- Modal de Lançamento de Salário -->
+	<dialog id="payModal" class="pay-modal">
+		<h3 id="modal-title-text" style="margin:0;">Lançar Pagamento</h3>
+		<form id="payForm" class="pay-form">
+			<input type="hidden" id="form-employee-id" value="">
+			<input type="hidden" id="form-transaction-id" value="">
+			
+			<label> Funcionário Selecionado
+				<input type="text" id="form-emp-name" disabled style="opacity: 0.6;">
+			</label>
+			<label> Valor do Salário (R$)
+				<input type="number" id="form-amount" min="1" step="0.01" required placeholder="1500.00">
+			</label>
+			<div class="pay-actions-row">
+				<button type="button" id="btn-close-modal" class="btn btn-admin" style="background:transparent; border:1px solid var(--color-border); color:#fff;">Voltar</button>
+				<button type="submit" class="btn btn-admin">Efetivar Lançamento</button>
+			</div>
+		</form>
+	</dialog>
+
 	<script src="admin.js"></script>
+	<script src="admin-payments.js"></script>
 </body>
 </html>
